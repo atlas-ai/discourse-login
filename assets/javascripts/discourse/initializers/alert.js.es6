@@ -1,8 +1,12 @@
+import { withPluginApi } from 'discourse/lib/plugin-api';
+
 export default {
-  name: 'alert',
+  name: 'Atlas-ai changing the world',
   initialize() {
-    window.alert('alert boxes are annoying!');
-    alert('alert boxes are annoying!');
-    console.log('plugin loaded');
+
+     withPluginApi('0.1', api => {
+       api.onPageChange(() => console.log('user navigated!'));
+     });
+
   }
-};
+}
