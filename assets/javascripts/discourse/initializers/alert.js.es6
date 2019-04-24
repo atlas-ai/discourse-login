@@ -5,8 +5,8 @@ export default {
   initialize() {
 
      withPluginApi('0.1', api => {
-       api.onPageChange(() => console.log('user navigated!'));
+ 			console.log(api.getCurrentUser());
+     	api.onPageChange(() => console.log('user navigated!'));
      });
-
   }
 }
