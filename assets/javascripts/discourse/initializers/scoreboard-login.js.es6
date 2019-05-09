@@ -1,15 +1,22 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
 
+async function logout(user) {
+  if (window.location.search.includes('logout') || window.location.pathname.includes('logout')) {
+    await user.destroySession().
+    then((response) => {
+      return window.location.href = 'http://localhost:9292/login';
+    })
+    .catch(error => console.error(error));
+  }
+}
+
 export default {
   name: 'Atlas-ai changing the world',
   initialize() {
-
      withPluginApi('0.1', api => {
       const user = api.getCurrentUser();
       if (!user) return;
-      if (window.location.search.includes('logout')) {
-        return ajax(`/session/${user.name}`, { type: "DELETE" });
-      }
+      logout(user);
      	api.onPageChange(() => {
      		console.log('user navigated!');
      		console.log(`current user:${user.name}`);
