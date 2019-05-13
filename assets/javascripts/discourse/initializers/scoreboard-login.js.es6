@@ -4,7 +4,7 @@ function logout(user) {
   if (window.location.search.includes('logout') || window.location.pathname.includes('logout')) {
     user.destroySession().
     then((response) => {
-      return window.location.href = 'https://dixi.atlasaitech.com/login';
+      return window.location.href = 'https://staging-dixi.atlasaitech.com/login';
     })
     .catch(error => console.error(error));
   }
