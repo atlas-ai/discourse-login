@@ -1,8 +1,8 @@
 import { withPluginApi } from 'discourse/lib/plugin-api';
 
-async function logout(user) {
+function logout(user) {
   if (window.location.search.includes('logout') || window.location.pathname.includes('logout')) {
-    await user.destroySession().
+    user.destroySession().
     then((response) => {
       return window.location.href = 'http://localhost:9292/login';
     })
@@ -16,7 +16,7 @@ export default {
      withPluginApi('0.1', api => {
       const user = api.getCurrentUser();
       if (!user) return;
-      logout(user);
+      return logout(user);
      	api.onPageChange(() => {
      		console.log('user navigated!');
      		console.log(`current user:${user.name}`);
