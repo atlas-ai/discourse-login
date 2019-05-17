@@ -12,6 +12,7 @@ export default {
       api.onPageChange(() => {
         console.log('scoreboard plugin loaded');
         if (should('logout')) {
+          console.log('logging out');
           if (window.localStorage) {
             window.localStorage.removeItem('user');
             window.localStorage.removeItem('apikey');
