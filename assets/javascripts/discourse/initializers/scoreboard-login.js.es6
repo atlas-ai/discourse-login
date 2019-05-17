@@ -11,8 +11,31 @@ export default {
       const user = api.getCurrentUser();
       api.onPageChange(() => {
         console.log('scoreboard plugin loaded');
-        if (should('logout')) api.container.lookup("route:application").send("logout");
-        if (should('login')) api.container.lookup("route:application").send("showLogin");
+        if (should('logout')) {
+          if (window.localStorage) {
+            window.localStorage.removeItem('user');
+            window.localStorage.removeItem('apikey');
+            window.localStorage.removeItem('csrf');
+          } else {
+            window.sessionStorage.removeItem('user');
+            window.sessionStorage.removeItem('apikey');
+            window.sessionStorage.removeItem('csrf');
+          }
+          api.container.lookup("route:application").send("logout");
+        };
+        if (should('login')) {
+          console.log('show login');
+          if (window.localStorage) {
+            window.localStorage.removeItem('user');
+            window.localStorage.removeItem('apikey');
+            window.localStorage.removeItem('csrf');
+          } else {
+            window.sessionStorage.removeItem('user');
+            window.sessionStorage.removeItem('apikey');
+            window.sessionStorage.removeItem('csrf');
+          }
+          api.container.lookup("route:application").send("showLogin");
+        }
       });
     });
   }
