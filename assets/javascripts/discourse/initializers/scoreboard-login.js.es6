@@ -8,7 +8,6 @@ export default {
   name: 'Atlas-ai changing the world',
   initialize() {
     withPluginApi('0.1', api => {
-      const user = api.getCurrentUser();
       api.onPageChange(() => {
         console.log('scoreboard plugin loaded');
         if (should('logout')) {
@@ -23,8 +22,7 @@ export default {
             window.sessionStorage.removeItem('csrf');
           }
           api.container.lookup("route:application").send("logout");
-        };
-        if (should('login')) {
+        } else if (should('login')) {
           console.log('show login');
           if (window.localStorage) {
             window.localStorage.removeItem('user');
@@ -36,6 +34,13 @@ export default {
             window.sessionStorage.removeItem('csrf');
           }
           api.container.lookup("route:application").send("showLogin");
+        } else if (api.getCurrentUser()) {
+          console.log(api.getCurrentUser());
+          if (window.localStorage) {
+            window.localStorage.setItem('user', api.getCurrentUser().username);
+          } else {
+            window.sessionStorage.user = api.getCurrentUser().username;
+          }
         }
       });
     });
