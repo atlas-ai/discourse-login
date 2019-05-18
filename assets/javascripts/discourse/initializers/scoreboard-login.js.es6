@@ -22,6 +22,7 @@ export default {
             window.sessionStorage.removeItem('csrf');
           }
           api.container.lookup("route:application").send("logout");
+          api.container.lookup("route:application").send("showLogin");
         } else if (should('login')) {
           console.log('show login');
           if (window.localStorage) {
